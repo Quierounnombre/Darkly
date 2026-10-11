@@ -22,6 +22,7 @@
 - http://localhost:4942/api/telemetry/heartbeat
 - http://localhost:4942/api/users
 - http://localhost:4942/api/collect
+- http://localhost:4942/api/grades
 
 ## Exfiltration & XSS
 **Info:** Posible XSS vía forum custom HTML — inyección de script propio que devuelve documentos/datos. Confirmado con 3 scripts distintos (no es fluke).
