@@ -6,8 +6,14 @@
 
 -> ##URL or additional notes
 
-# Finding
+# JDOE
 ## Data
 jdoe account vulnerable to rockyou.txt
 ## URLs
 http://localhost:4942/forum/6viy7xi64gxpan3
+
+# PASS_RESET
+## Data
+Posible vuln due to pass reset?
+## URLs
+http://localhost:4942/forum/r8y1ib6ub8g47u2
