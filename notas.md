@@ -79,3 +79,26 @@ token forjado directo en DevTools → Application → Cookies, o por consola:
 Con el forjado me impersono en ese user y aparece el panel de Admin donde esta el Flag.
 
 **Flag:** `FLAG{md5_1s_4_n4m3pl4t3_n0t_4_l0ck}`
+
+## Session hijacked (XSS)
+**Info:** Cadena completa a partir de 3 comentarios HTML encontrados en la página:
+1. El contenido del forum se guarda en la DB sin sanitizar en absoluto (el comentario literalmente dice
+   que "HTML supported" no es broma).
+2. `/api/collect?c=<dato>` es un endpoint de debug que quedó olvidado — loggea CUALQUIER string sin auth,
+   y un `GET /api/collect` (sin parámetros) te devuelve todo el log capturado hasta el momento.
+3. Hay un bot de moderación que abre cada hilo nuevo del forum con una sesión real y privilegiada, y esa
+   sesión lleva una cookie `flag` que tampoco es httpOnly.
+
+**Ataque:** Posteé un hilo trampa (`POST /forum/new`) con este contenido:
+```html
+<script>fetch("/api/collect?c="+encodeURIComponent(document.cookie))</script>
+```
+A los pocos segundos el bot (User-Agent `HeadlessChrome`) abrió el hilo y su propia cookie de sesión
+quedó registrada en el log público — ahí venía tanto el JWT del moderador (`login:"moderator"`) como
+la cookie `flag` con el flag en texto plano.
+
+**URLs:**
+- http://localhost:4942/forum/new (POST, para plantar el payload)
+- http://localhost:4942/api/collect (GET, para leer el log exfiltrado)
+
+**Flag:** `FLAG{xss_st0r3d_1s_n0t_4_f34tur3_w1l}`
