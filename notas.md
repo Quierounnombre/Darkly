@@ -102,3 +102,21 @@ la cookie `flag` con el flag en texto plano.
 - http://localhost:4942/api/collect (GET, para leer el log exfiltrado)
 
 **Flag:** `FLAG{xss_st0r3d_1s_n0t_4_f34tur3_w1l}`
+
+## File upload
+**Info:** El avatar de perfil (`/profile/me/settings`) tiene un form a `POST /upload/avatar`
+sin ningún filtro de extensión ni tipo — coincide con el deploy log:
+`v1.3.3 — wil — "quick fix on file upload" (removed the whitelist entirely)`.
+
+Subí `.txt`, `.html` y `.svg` y los tres se aceptaron sin problema. Se guardan en
+`/static/uploads/{user_id}_{nombre_original}` y se sirven de vuelta con su content-type REAL:
+- `.html` → `text/html` — queda hosteada una página 100% controlada por el atacante, mismo origen.
+- `.svg` → `image/svg+xml` — el `<script>` dentro del SVG se ejecuta al abrir el archivo directamente.
+
+upload sin restricciones = XSS almacenado same-origin con cualquier tipo de archivo
+
+**URLs:**
+- http://localhost:4942/upload/avatar (POST, multipart field `file`)
+- http://localhost:4942/profile/me/settings (donde está el form y se ve la flag)
+
+**Flag:** `FLAG{unr3str1ct3d_upl0ad_g0_brrr}`
