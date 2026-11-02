@@ -124,3 +124,30 @@ upload sin restricciones = XSS almacenado same-origin con cualquier tipo de arch
 ## Can selflog into backend 8090
 
 WIP, but you can enter the backend and create users, attempting to break into admin rols unsucessfull, trying to break a pswd to enter
+
+### XXE → SSRF (internal config leak)
+**Info:** `/agenda` import accepts raw XML, parsed with unsafe stdlib `xml.etree` (confirmed via platform status panel + HTML comment: `emilie: i filed a ticket to use defusedxml. wil: i filed it under "wontfix"`). External entities resolve both local files and internal URLs — used to pivot past the `/internal/config` "localhost only" restriction, since the request originates server-side.
+
+**Leaked:** JWT secret, PocketBase superuser credentials, app version, and the flag itself — all in one shot.
+
+**Requires:** any valid `session` cookie for the FastAPI app (login as any student/cadet works, e.g. via PASS_RESET).
+
+**Script:**
+
+Run the `scripts/xml_attack.sh` with a valid token
+
+**Output:**
+```json
+{
+  "jwt_secret": "42network",
+  "pb_admin_email": "admin@42network.local",
+  "pb_admin_password": "Darkly42Admin!",
+  "app_version": "1.0.0",
+  "campus": "wilcity",
+  "darkly_flag": "FLAG{d3fus3dxml_n3xt_spr1nt_pr0m1s3}"
+}
+```
+
+**Flag:** `FLAG{d3fus3dxml_n3xt_spr1nt_pr0m1s3}`
+
+**Bonus:** `pb_admin_email`/`pb_admin_password` unlock real PocketBase superuser auth — the credential that was blocking `grades` and `/_/#/login` the whole time:

@@ -1,2 +1,6 @@
 *.json
 *.raw
+*.svg
+*.xml
+*.txt
+*.gz
