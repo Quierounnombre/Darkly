@@ -120,3 +120,7 @@ upload sin restricciones = XSS almacenado same-origin con cualquier tipo de arch
 - http://localhost:4942/profile/me/settings (donde está el form y se ve la flag)
 
 **Flag:** `FLAG{unr3str1ct3d_upl0ad_g0_brrr}`
+
+## Can selflog into backend 8090
+
+WIP, but you can enter the backend and create users, attempting to break into admin rols unsucessfull, trying to break a pswd to enter
