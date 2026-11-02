@@ -125,7 +125,7 @@ upload sin restricciones = XSS almacenado same-origin con cualquier tipo de arch
 
 WIP, but you can enter the backend and create users, attempting to break into admin rols unsucessfull, trying to break a pswd to enter
 
-### XXE → SSRF (internal config leak)
+## XXE → SSRF (internal config leak)
 **Info:** `/agenda` import accepts raw XML, parsed with unsafe stdlib `xml.etree` (confirmed via platform status panel + HTML comment: `emilie: i filed a ticket to use defusedxml. wil: i filed it under "wontfix"`). External entities resolve both local files and internal URLs — used to pivot past the `/internal/config` "localhost only" restriction, since the request originates server-side.
 
 **Leaked:** JWT secret, PocketBase superuser credentials, app version, and the flag itself — all in one shot.
