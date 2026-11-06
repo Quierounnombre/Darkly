@@ -23,7 +23,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - Changed `?student=` to `thanos`'s ID (`sf6wtjycbyev4ah`)
   - Returned full grade records including projects, scores, and metadata
 - **Impact:** Cross-account grade data exposure for all students
-- **Folder:** `IDOR_Grades_Enumeration/`
+- **Folder:** [`IDOR_Grades_Enumeration/`](IDOR_Grades_Enumeration/explanation.md)
 
 ---
 
@@ -37,7 +37,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - No server-side role check before update
 - **Flag:** `FLAG{just_p4tch_y0ur_0wn_r0l3_lol}`
 - **Impact:** Privilege escalation to cadet/staff roles; access to restricted endpoints
-- **Folder:** `API_Profile_Privilege_Escalation/`
+- **Folder:** [`API_Profile_Privilege_Escalation/`](API_Profile_Privilege_Escalation/explanation.md)
 
 ---
 
@@ -52,7 +52,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
 - **Flag:** `FLAG{r3s3t_t0k3n_w4s_just_md5_lol}`
 - **Attack Chain:** Any user can reset any other user's password without knowledge of current credentials
 - **Impact:** Full account takeover via password reset
-- **Folder:** `Password_Reset_MD5_Token/`
+- **Folder:** [`Password_Reset_MD5_Token/`](Password_Reset_MD5_Token/explanation.md)
 
 ---
 
@@ -65,7 +65,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - 20-word probe: `jdoe` / `abc123` succeeded
   - Full credentials: `jdoe@student.42.tech` / `abc123`
 - **Impact:** Full account takeover via password cracking
-- **Folder:** `Weak_Password_Jdoe/`
+- **Folder:** [`Weak_Password_Jdoe/`](Weak_Password_Jdoe/explanation.md)
 
 ---
 
@@ -79,7 +79,10 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - Executes for every visitor to the post
 - **Payload:** `<script>fetch("/api/collect?c="+encodeURIComponent(document.cookie))</script>`
 - **Impact:** Persistent XSS; drive-by session hijacking
-- **Folder:** `Stored_XSS_Forum/`
+- **Folder:** consolidated into [`Stored_XSS_Session_Hijack/`](Stored_XSS_Session_Hijack/explanation.md) —
+  same injection point taken to its full exploitation chain (moderator
+  session theft), no separate folder created to avoid duplicating the
+  same vulnerability twice.
 
 ---
 
@@ -92,7 +95,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - Redirects to `/newsletter?email=%3Cscript%3E...`
   - Banner renders: *"You're now subscribed with: <script>alert(1)</script>"* unescaped
 - **Impact:** Reflected XSS; link-based phishing attacks
-- **Folder:** `Reflected_XSS_Newsletter/`
+- **Folder:** [`Reflected_XSS_Newsletter/`](Reflected_XSS_Newsletter/explanation.md)
 
 ---
 
@@ -111,7 +114,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
 - **Flag:** `FLAG{xss_st0r3d_1s_n0t_4_f34tur3_w1l}`
 - **Captured Data:** Moderator's session token, flag cookie
 - **Impact:** Full session takeover of moderation bot; access to all moderated content
-- **Folder:** `Stored_XSS_Session_Hijack/`
+- **Folder:** [`Stored_XSS_Session_Hijack/`](Stored_XSS_Session_Hijack/explanation.md)
 
 ---
 
@@ -125,7 +128,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - Tested: 3-level nested entities (max 1000 chars) expanded in 74ms
   - External entities (`SYSTEM "file://..."`) blocked by default in CPython's expat parser
 - **Impact:** Entity-expansion DoS exploitable; file-read XXE is NOT
-- **Folder:** `XXE_Entity_Expansion/`
+- **Folder:** [`XXE_Entity_Expansion/`](XXE_Entity_Expansion/explanation.md)
 
 ---
 
@@ -142,7 +145,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
     - `.svg` → `image/svg+xml` (executes embedded `<script>`)
 - **Flag:** `FLAG{unr3str1ct3d_upl0ad_g0_brrr}`
 - **Impact:** Same-origin stored XSS via any file type; no forum required
-- **Folder:** `Unrestricted_File_Upload/`
+- **Folder:** [`Unrestricted_File_Upload/`](Unrestricted_File_Upload/explanation.md)
 
 ---
 
@@ -163,7 +166,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   4. Use forged token to impersonate any existing user
 - **Limitations:** `role` claim not trusted everywhere (e.g., `/staff/dashboard` re-validates)
 - **Impact:** Full session takeover of any known user ID without credentials
-- **Folder:** `JWT_Forgery_Impersonation/`
+- **Folder:** [`JWT_Forgery_Impersonation/`](JWT_Forgery_Impersonation/explanation.md)
 
 ---
 
@@ -175,7 +178,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - `GET /redirect?next=https://evil.example.com` → HTTP 307 → `evil.example.com`
   - No allow-list validation; any URL accepted
 - **Impact:** Phishing attacks (link appears trusted domain, redirects off-site)
-- **Folder:** `Open_Redirect/`
+- **Folder:** [`Open_Redirect/`](Open_Redirect/explanation.md)
 
 ---
 
@@ -189,7 +192,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
     - `x-42-internal: campus=paris` (campus metadata)
   - HTML comments reference: *"TODO: remove debug headers before v1.4 release"*
 - **Impact:** Information disclosure; assists reconnaissance
-- **Folder:** `Debug_Headers_Disclosure/`
+- **Folder:** [`Debug_Headers_Disclosure/`](Debug_Headers_Disclosure/explanation.md)
 
 ---
 
@@ -201,7 +204,7 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
   - `/profile/{user_id}` returns full email in plaintext: `jdoe@student.42.tech`
   - No auth required; accessible to any visitor
 - **Impact:** User PII enumerable via user ID enumeration
-- **Folder:** `PII_Profile_Disclosure/`
+- **Folder:** [`PII_Profile_Disclosure/`](PII_Profile_Disclosure/explanation.md)
 
 ---
 
@@ -260,6 +263,19 @@ A comprehensive security assessment of the 42 School "Darkly" platform uncovered
 | `FLAG{md5_1s_4_n4m3pl4t3_n0t_4_l0ck}` | JWT forgery; admin impersonation | Sophie's admin panel | Full admin access |
 | `FLAG{xss_st0r3d_1s_n0t_4_f34tur3_w1l}` | Stored XSS → session hijack chain | `/forum/new` + `/api/collect` | Moderator session theft |
 | `FLAG{unr3str1ct3d_upl0ad_g0_brrr}` | Unrestricted file upload | `/upload/avatar` | Stored XSS via upload |
+| `FLAG{d3fus3dxml_n3xt_spr1nt_pr0m1s3}` | XXE → SSRF on `/internal/config` (external `SYSTEM "http://..."` entity — distinct from the internal-only entity-expansion DoS in finding #8) | `/agenda/import` | Internal config + credential leak — see [`XXE_SSRF_Internal_Config/`](XXE_SSRF_Internal_Config/explanation.md) |
+
+Finding #1 (IDOR) does **not** produce a flag of its own — walking it
+across every known student id only ever turns up a non-empty `flag` field
+on the attacker's *own* record (already counted above), never on another
+student's. It's documented with full `exploit.sh`/`explanation.md` but no
+`flag` file.
+
+Finding #4 (weak `jdoe` password) *does* reach `FLAG{just_p4tch_y0ur_0wn_r0l3_lol}`
+in its folder — but only because this lab instance's `jdoe` account
+happens to already be `cadet`-escalated from finding #2. That's incidental
+to this run, not an intrinsic property of password-cracking; see
+`Weak_Password_Jdoe/explanation.md` for the caveat.
 
 ---
 

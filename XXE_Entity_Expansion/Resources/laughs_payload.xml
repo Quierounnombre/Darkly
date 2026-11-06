@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE agenda [
+  <!ENTITY a "lol">
+  <!ENTITY b "&a;&a;&a;&a;&a;">
+  <!ENTITY c "&b;&b;&b;&b;&b;">
+]>
+<agenda>
+  <event>
+    <title>&c;</title>
+    <date>2042-01-15</date>
+  </event>
+</agenda>

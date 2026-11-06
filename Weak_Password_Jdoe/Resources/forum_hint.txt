@@ -1,0 +1,11 @@
+Pista encontrada en un post del foro apuntando a que la contraseña de
+jdoe está en una wordlist "famosa" (rockyou.txt).
+
+Prueba con un diccionario reducido (20 palabras más comunes de
+rockyou.txt) contra POST /login con identity=jdoe@student.42.tech:
+
+  password 1: 123456        -> Invalid credentials
+  ...
+  password N: abc123        -> 302 Found, sesión válida
+
+Credenciales confirmadas: jdoe@student.42.tech / abc123

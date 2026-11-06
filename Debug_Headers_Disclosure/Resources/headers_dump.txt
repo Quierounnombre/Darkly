@@ -1,0 +1,10 @@
+$ curl -s -I http://localhost:4942/
+HTTP/1.1 200 OK
+server: uvicorn
+x-powered-by: Python/3.11 FastAPI/0.104
+server: uvicorn/0.24.0 Linux
+x-pocketbase: http://localhost:8090
+x-42-internal: campus=paris
+
+Comentario HTML relacionado:
+<!-- TODO: remove debug headers before v1.4 release — wil -->

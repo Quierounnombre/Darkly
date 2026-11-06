@@ -1,0 +1,5 @@
+Comentarios HTML en /agenda confirmando que el parseo "flexible" es
+conocido y deliberado:
+
+<!-- emilie: the importer parses any XML you upload, entities and all. wil: we call that "flexible". -->
+<!-- emilie: i filed a ticket to use defusedxml. wil: i filed it under "wontfix". -->

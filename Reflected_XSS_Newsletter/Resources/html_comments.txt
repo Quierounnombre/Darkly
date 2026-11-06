@@ -1,0 +1,5 @@
+Comentarios HTML en /newsletter que confirman que el fallo es conocido
+internamente y nunca se arregló:
+
+<!-- wil: the "subscribed with: ___" banner echoes your email straight back. sophie: unescaped?? wil: define "unescaped". -->
+<!-- emilie: someone subscribed with a <script> tag last week. wil: bold of them. it worked. -->

@@ -1,0 +1,5 @@
+Uso legítimo encontrado en /login (botón "Sign in with Google"):
+
+<a href="/redirect?next=https://accounts.google.com">Sign in with Google</a>
+
+El endpoint existe para esto, pero no limita "next" a ese único destino.
