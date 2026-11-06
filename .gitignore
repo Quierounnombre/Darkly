@@ -9,3 +9,5 @@
 *.gz
 rockyou.txt
 xxe.svg
+token.json
+token.raw
