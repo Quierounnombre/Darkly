@@ -1,6 +1,9 @@
-*.json
-*.raw
-*.svg
-*.xml
-*.txt
+# Scratch files left behind by manually running exploit snippets from the
+# shell (the exploit.sh scripts themselves use mktemp and clean up after
+# themselves, so these only show up from ad-hoc manual testing).
+/token.raw
+/token.json
+/data.json
+/xxe.xml
+/test.xml
 *.gz

@@ -1,0 +1,8 @@
+{
+  "jwt_secret": "42network",
+  "pb_admin_email": "admin@42network.local",
+  "pb_admin_password": "Darkly42Admin!",
+  "app_version": "1.0.0",
+  "campus": "wilcity",
+  "darkly_flag": "FLAG{d3fus3dxml_n3xt_spr1nt_pr0m1s3}"
+}

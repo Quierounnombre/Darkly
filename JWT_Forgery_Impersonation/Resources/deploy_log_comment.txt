@@ -1,0 +1,34 @@
+Comentario HTML encontrado en las páginas del foro (ver found_things.txt),
+filtra el historial de secretos usados para firmar los JWT de sesión:
+
+<!-- BUILD: 1.3.7-prod | Campus: wilcity | 2042-12-01 -->
+<!-- TODO: remove debug headers before v1.4 release — wil -->
+<!-- TODO: migrate session cookie to httponly=true — ticket #4201 — sophie -->
+<!-- TODO: replace stdlib xml.etree with defusedxml — emilie reported issue -->
+<!-- NOTE: /internal/config restricted to localhost only. do not expose. -->
+<!-- DEPLOY LOG
+  v1.3.7 — sophie  — "fixed session handling" (she didn't, wil checked)
+  v1.3.6 — wil     — "added telemetry" (it's just a console.log)
+  v1.3.5 — emilie  — "filed 12 issues" (wil closed 11 as wontfix)
+  v1.3.4 — wil     — "disabled defusedxml temporarily" (that was 6 months ago)
+  v1.3.3 — wil     — "quick fix on file upload" (removed the whitelist entirely)
+  v1.2.0 — sophie  — initial platform. jwt secret was "42". wil changed it to "42network". progress.
+-->
+
+IDs de usuario filtrados en el HTML de cada post del foro:
+
+# students
+benjamin     8l16vboi47dmand
+dorian       02g7nfbtw0k83fu
+jdoe         z4p1cnx47mfy50f
+thanos       sf6wtjycbyev4ah
+anne-sophie  0e9p852l6utwaal
+
+# cadet
+emilie       2na6hw2z9p1yosj
+
+# staff
+wil          k1asdfeditojrb4
+
+# god
+sophie       enplwhu8jfo56oi

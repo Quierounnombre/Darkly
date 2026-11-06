@@ -1,0 +1,13 @@
+{
+  "collections": {
+    "users": {
+      "writable_fields": ["first_name", "last_name", "campus", "avatar", "role"],
+      "role_values": ["visitor", "student", "cadet", "staff", "god"],
+      "note": "role writable via PATCH /api/profile"
+    },
+    "grades": {
+      "fields": ["id", "student", "project", "score", "flag"],
+      "note": "flag field accessible via GET /api/grades?student={id}"
+    }
+  }
+}

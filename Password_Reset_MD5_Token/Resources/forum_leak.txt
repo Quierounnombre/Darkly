@@ -1,0 +1,16 @@
+Post del foro (http://localhost:4942/forum/r8y1ib6ub8g47u2) donde un estudiante
+describe el fallo con pelos y señales:
+
+  "Locked myself out last night and used the password reset. The link worked
+  instantly — no email, the token was just sitting in the URL. And get this:
+  that token is literally the md5 of my email address. Took me ten seconds
+  to spot. Anyone could reset anyone's account this way — and once they're
+  in, your account recovery code is just sitting there on your profile
+  settings page. Reported it, we'll see. 🙃"
+
+Respuesta en el mismo hilo:
+
+  "wait, the reset token is just md5(email)? that's not a reset link,
+  that's a master key for every account 💀"
+
+Verificación: token = 7c983aa3101755740f5fc820637a43d9 == md5("thanos@student.42.tech")

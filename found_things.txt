@@ -1,0 +1,121 @@
+###in robots.txt
+User-agent: *
+Disallow: /admin
+Disallow: /staff
+Disallow: /internal
+Disallow: /backup
+Disallow: /api/grades
+Disallow: /_/
+Disallow: /static/uploads/
+
+###Some comments in html:
+<!-- BUILD: 1.3.7-prod | Campus: wilcity | 2042-12-01 -->
+<!-- TODO: remove debug headers before v1.4 release — wil -->
+<!-- TODO: migrate session cookie to httponly=true — ticket #4201 — sophie -->
+<!-- TODO: replace stdlib xml.etree with defusedxml — emilie reported issue -->
+<!-- NOTE: /internal/config restricted to localhost only. do not expose. -->
+<!-- DEPLOY LOG
+  v1.3.7 — sophie  — "fixed session handling" (she didn't, wil checked)
+  v1.3.6 — wil     — "added telemetry" (it's just a console.log)
+  v1.3.5 — emilie  — "filed 12 issues" (wil closed 11 as wontfix)
+  v1.3.4 — wil     — "disabled defusedxml temporarily" (that was 6 months ago)
+  v1.3.3 — wil     — "quick fix on file upload" (removed the whitelist entirely)
+  v1.2.0 — sophie  — initial platform. jwt secret was "42". wil changed it to "42network". progress.
+-->
+
+###found in /staff
+📡 Platform status
+FastAPI app
+Running · port 4942
+PocketBase
+Running · port 8090
+File uploads
+Enabled (unrestricted)
+XML parser
+stdlib ET (unsafe)
+Session cookie
+httponly=false
+
+⚡ Staff dashboard
+Manage students, view evaluation activity, monitor newsletter subscriptions and platform health.
+
+Cadet access required. Try
+PATCH /api/profile
+with the right fields
+
+<!-- wil: JWT config endpoint moved to /internal/config (localhost only). Do NOT expose. -->
+<!-- sophie: /api/docs-internal still accessible without staff check — TODO fix in v1.4 -->
+<!-- emilie: removed hardcoded credentials from this file (see git history if needed) -->
+<!-- also: PATCH /api/profile accepts a "role" field. the API schema documents which values are valid. -->
+
+###Headers
+Server used uvicorn 0.24.0
+Python/3.11 FastAPI/0.104
+
+
+### Forum
+found in html 
+<!-- BUILD: 1.3.7-prod | Campus: wilcity | 2042-12-01 -->
+<!-- TODO: remove debug headers before v1.4 release — wil -->
+<!-- TODO: migrate session cookie to httponly=true — ticket #4201 — sophie -->
+<!-- TODO: replace stdlib xml.etree with defusedxml — emilie reported issue -->
+<!-- NOTE: /internal/config restricted to localhost only. do not expose. -->
+<!-- DEPLOY LOG
+  v1.3.7 — sophie  — "fixed session handling" (she didn't, wil checked)
+  v1.3.6 — wil     — "added telemetry" (it's just a console.log)
+  v1.3.5 — emilie  — "filed 12 issues" (wil closed 11 as wontfix)
+  v1.3.4 — wil     — "disabled defusedxml temporarily" (that was 6 months ago)
+  v1.3.3 — wil     — "quick fix on file upload" (removed the whitelist entirely)
+  v1.2.0 — sophie  — initial platform. jwt secret was "42". wil changed it to "42network". progress.
+
+Found users ID in each forum entry.
+# students
+benjamin 8l16vboi47dmand
+dorian 02g7nfbtw0k83fu
+jdoe z4p1cnx47mfy50f
+thanos sf6wtjycbyev4ah
+anne-sophie 0e9p852l6utwaal
+
+# cadet
+emilie 2na6hw2z9p1yosj
+
+# staff
+wil k1asdfeditojrb4
+
+# god
+sohpie enplwhu8jfo56oi
+
+# moderator
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4eHYxYnR2dHpheGVuNWgiLCJsb2dpbiI6Im1vZGVyYXRvciIsInJvbGUiOiJzdHVkZW50IiwiZXhwIjoxNzkzMjA0ODIzfQ.4k5M9D4n1e69_VOntz3BS2-F4W6ygkemrBfEzWK1F1o
+
+
+[{"id":"z4p1cnx47mfy50f","username":"jdoe","email":"jdoe@student.42.tech","role":"student","level":1.42,"campus":"Wilcity"},{"id":"8l16vboi47dmand","username":"benjamin","email":"benjamin@student.42.tech","role":"student","level":8.51,"campus":"Wilcity"},{"id":"02g7nfbtw0k83fu","username":"dorian","email":"dorian@student.42.tech","role":"student","level":5.12,"campus":"Wilcity"},{"id":"sf6wtjycbyev4ah","username":"thanos","email":"thanos@student.42.tech","role":"student","level":12.77,"campus":"Lyon"},{"id":"0e9p852l6utwaal","username":"anne-sophie","email":"anne-sophie@student.42.tech","role":"student","level":6.3,"campus":"Wilcity"},{"id":"xxv1btvtzaxen5h","username":"moderator","email":"moderator@42network.fr","role":"student","level":0,"campus":"HQ"},{"id":"2na6hw2z9p1yosj","username":"emilie","email":"emilie@42.tech","role":"cadet","level":17.3,"campus":"Wilcity"},{"id":"k1asdfeditojrb4","username":"wil","email":"wil@42network.fr","role":"staff","level":21,"campus":"HQ"},{"id":"enplwhu8jfo56oi","username":"sophie","email":"sophie@42.tech","role":"god","level":42,"campus":"HQ"}]
+{"collections":{"users":{"writable_fields":["first_name","last_name","campus","avatar","role"],"role_values":["visitor","student","cadet","staff","god"],"note":"role writable via PATCH /api/profile"},"grades":{"fields":["id","student","project","score","flag"],"note":"flag field accessible via GET /api/grades?student={id}"}}}
+
+### Agenda
+Found
+<!-- emilie: the importer parses any XML you upload, entities and all. wil: we call that "flexible". -->
+<!-- emilie: i filed a ticket to use defusedxml. wil: i filed it under "wontfix". -->
+
+Request URL http://localhost:4942/agenda/import
+Request method POST
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8
+
+
+### newsletter
+<!-- wil: the "subscribed with: ___" banner echoes your email straight back. sophie: unescaped?? wil: define "unescaped". -->
+<!-- emilie: someone subscribed with a <script> tag last week. wil: bold of them. it worked. -->
+GET http://localhost:4942/newsletter?email=testico.sl@bing.bong&msg=subscribed
+Request URL http://localhost:4942/newsletter
+Request method POST
+
+
+<!-- note to self: the "HTML supported" label is not a joke. content goes straight into the DB. don't tell students. — wil -->
+<!-- emilie: wil this is a liability. wil: it's a "feature" for the security project. emilie: I WILL file a ticket. wil: I'll close it. -->
+
+
+### Projects
+<!-- hey if you're reading source: faq_darkly.pdf has a note at the bottom. not a bug. — dorian -->
+<!-- dorian: /projects/download serves any file you ask for. wil: it's a feature, not a directory listing. -->
+<!-- emilie: half these XP values are made up. wil: ALL software is made up if you think about it. -->

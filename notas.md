@@ -3,6 +3,15 @@
 ## JDOE
 **Info:** jdoe account vulnerable to rockyou.txt
 **URL:** http://localhost:4942/forum/6viy7xi64gxpan3
+**Lead (2026-11-06):** `PATCH /api/profile` devuelve el objeto de usuario completo,
+incluido un campo `pw_hint` (MD5). Para jdoe en ese momento era
+`e99a18c428cb38d5f260853678922e03` = `md5("abc123")`, pero al probar login
+con `identity=jdoe@student.42.tech&password=abc123` dio "Invalid credentials"
+(probablemente porque la cuenta jdoe ya se había tocado en otra sesión —
+avatar, reset, etc. — y el hint quedó desincronizado). Sigue WIP: habría que
+re-leer `pw_hint` en fresco y crackear ese MD5 contra rockyou.txt antes de
+reintentar el login. Ver `API_Profile_Privilege_Escalation/` para el resto
+de lo que se puede sacar de ese mismo endpoint.
 
 ## Backend Exposed
 **Info:** Backend expuesto en puerto 8090
@@ -38,19 +47,26 @@
 # Confirmed attacks
 
 ## PASS_RESET
-**Info:** Confirmado — al resetear contraseña, 100% te deja cambiarla.
+**Info:** Confirmado — al resetear contraseña, 100% te deja cambiarla. El
+token no es aleatorio: es literalmente `md5(email)` (confirmado:
+`7c983aa3101755740f5fc820637a43d9` == `md5("thanos@student.42.tech")`, la
+víctima objetivo de este reto). Cadena completa verificada el 2026-11-06:
+reset con token derivado → login con la password nueva → flag en el campo
+"Account recovery code" de `/profile/me/settings`.
 **URLs:**
 - http://localhost:4942/forum/r8y1ib6ub8g47u2
-- http://localhost:4942/reset-password?email=<STUDENT_EMAIL>&token=7c983aa3101755740f5fc820637a43d9
+- http://localhost:4942/reset-password?email=thanos@student.42.tech&token=7c983aa3101755740f5fc820637a43d9
 **Flag location:** http://localhost:4942/profile/me/settings
-**Flag:** `r3s3t_t0k3n_w4s_just_md5_lol`
+**Flag:** `FLAG{r3s3t_t0k3n_w4s_just_md5_lol}`
+**Carpeta final:** [`Password_Reset_MD5_Token/`](Password_Reset_MD5_Token/explanation.md)
 
 ## API PATCH PRIVILEDGE SCALATION
 **Info:** Usa el script de api_profile para cambiar permisos a distintos perfiles, remember to refresh the cookie in the script.
 **URL:**
 - http://localhost:4942/staff
 - http://localhost:4942/api/profile This one is the attacked one
-**Flag:** FLAG{just_p4tch_y0ur_0wn_r0l3_lol}
+**Flag:** `FLAG{just_p4tch_y0ur_0wn_r0l3_lol}`
+**Carpeta final:** [`API_Profile_Privilege_Escalation/`](API_Profile_Privilege_Escalation/explanation.md)
 
 ## JWT FORGED
 **Info:** Los tokens de sesión son 3 partes en base64 `header.payload.signature`. El payload NO está cifrado,
@@ -79,6 +95,7 @@ token forjado directo en DevTools → Application → Cookies, o por consola:
 Con el forjado me impersono en ese user y aparece el panel de Admin donde esta el Flag.
 
 **Flag:** `FLAG{md5_1s_4_n4m3pl4t3_n0t_4_l0ck}`
+**Carpeta final:** [`JWT_Forgery_Impersonation/`](JWT_Forgery_Impersonation/explanation.md)
 
 ## Session hijacked (XSS)
 **Info:** Cadena completa a partir de 3 comentarios HTML encontrados en la página:
@@ -102,6 +119,7 @@ la cookie `flag` con el flag en texto plano.
 - http://localhost:4942/api/collect (GET, para leer el log exfiltrado)
 
 **Flag:** `FLAG{xss_st0r3d_1s_n0t_4_f34tur3_w1l}`
+**Carpeta final:** [`Stored_XSS_Session_Hijack/`](Stored_XSS_Session_Hijack/explanation.md)
 
 ## File upload
 **Info:** El avatar de perfil (`/profile/me/settings`) tiene un form a `POST /upload/avatar`
@@ -120,6 +138,7 @@ upload sin restricciones = XSS almacenado same-origin con cualquier tipo de arch
 - http://localhost:4942/profile/me/settings (donde está el form y se ve la flag)
 
 **Flag:** `FLAG{unr3str1ct3d_upl0ad_g0_brrr}`
+**Carpeta final:** [`Unrestricted_File_Upload/`](Unrestricted_File_Upload/explanation.md)
 
 ## Can selflog into backend 8090
 
@@ -149,5 +168,6 @@ Run the `scripts/xml_attack.sh` with a valid token
 ```
 
 **Flag:** `FLAG{d3fus3dxml_n3xt_spr1nt_pr0m1s3}`
+**Carpeta final:** [`XXE_SSRF_Internal_Config/`](XXE_SSRF_Internal_Config/explanation.md)
 
 **Bonus:** `pb_admin_email`/`pb_admin_password` unlock real PocketBase superuser auth — the credential that was blocking `grades` and `/_/#/login` the whole time:
